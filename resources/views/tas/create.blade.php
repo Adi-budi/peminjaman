@@ -44,18 +44,23 @@
                             <h3 class="card-title">Tambah</h3>
                         </div>
 
-                        <form action="{{ route('alat.store') }}" method="POST">
+                        <form action="{{ route('tas.store') }}" method="POST">
                             {{ @csrf_field() }}
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col">
                                         <div class="form-group">
-                                            <label for="nama">Nama alat</label>
-                                            <input type="text" class="form-control" id="nama" placeholder="nama" name="nama">
+                                            <label for="label">label</label>
+                                            <input type="text" class="form-control" placeholder="label" name="label">
                                         </div>
                                         <div class="form-group">
-                                            <label for="jumlah">Jumlah</label>
-                                            <input type="number" class="form-control" placeholder="Jumlah" name="jumlah">
+                                            <label>Isi Tas</label>
+                                            @foreach ($alat as $sis)
+                                                <div class="form-check">
+                                                    <input type="checkbox" class="form-check-input" id="{{ $sis->nama }}" name="isi[]" value="{{ $sis->id }}">
+                                                    <label class="form-check-label" for="{{ $sis->nama }}">{{ $sis->nama }}</label>
+                                                </div>
+                                            @endforeach
                                         </div>
                                     </div>
                                 </div>

@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="{{ url('plugins/toastr/toastr.min.css') }}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ url('css/adminlte.min.css') }}">
+  <link rel="stylesheet" href="{{ url('css/style.css') }}">
   <link rel="stylesheet" href="{{ url('plugins/select2/css/select2.min.css') }}">
   <link rel="stylesheet" href="{{ url('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
 </head>
@@ -65,6 +66,14 @@
   $(function() {
     // $('.select2').select2();
     toastr.success("{{ $message }}");
+  });
+</script>
+@endif
+@if ($message = Session::get('error'))
+<script>
+  $(function() {
+    // $('.select2').select2();
+    toastr.error("{{ $message }}");
   });
 </script>
 @endif

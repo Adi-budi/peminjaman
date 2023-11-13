@@ -60,11 +60,8 @@ Route::prefix('/')->namespace('App\Http\Controllers')->group(function(){
         Route::get('pengguna/ubahstatus0/{id}/{id1}', 'ubahstatus0')->name('pengguna.ubahstatus0');
         Route::get('pengguna/detail/{id}/', 'detail')->name('pengguna.detail');
     });
-    Route::controller(AlatController::class)->middleware('auth')->group(function() {
-        Route::get('alat', 'index')->name('alat');
-        Route::get('alat/create', 'create')->name('alat.create');
-        Route::post('alat/store', 'store')->name('alat.store');
-    });
+    Route::resource('alat', AlatController::class)->middleware('auth');
+    Route::resource('tas', TasController::class)->middleware('auth');
     Route::resource('user', UserController::class)->middleware('auth');
     Route::resource('akun', AccountController::class)->middleware('auth');
 });

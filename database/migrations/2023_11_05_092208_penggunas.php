@@ -18,7 +18,6 @@ class Penggunas extends Migration
             $table->string('nim',50);
             $table->string('nama',255);
             $table->string('nomor_telp',50);
-            $table->string('nomor_telp',50);
             $table->string('keperluan',255);
             $table->foreignId('alats');
             $table->foreignId('ruangans');

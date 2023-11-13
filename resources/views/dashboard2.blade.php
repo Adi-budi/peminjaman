@@ -27,30 +27,17 @@
                       <div class="card-header">
                         <h3 class="card-title">Belum mengembalikan barang</h3>
                       </div>
-                      <div class="card-body table-responsive p-0" style="height: 300px;">
-                        <table class="table table-head-fixed text-wrap">
-                            <thead>
-                                <tr>
-                                    <th>Status</th>
-                                    <th class="col-9">Nama Peminjam</th>
-                                    <th class="col-4">Aksi</th>
-
-                                </tr>
-                            </thead>
-                            <tbody>
-                              @forelse ($pengguna as $sisi)
-                                <tr>
-                                    <td class="text-danger" title="belum dikembalikan"><i class="fas fa-times-circle"></i></td>
-                                    <td>{{ $sisi->nama }}</td>
-                                    <td><a href="{{ url('ubahstatus1',['id' => $sisi->id, 'id1' => $sisi->alat]) }}" class="text-light bg-success" style="padding: 8px; border-radius:100px; font-size: 13px;" title="klik untuk mengubah">Sudah</a></td>
-                                </tr>
-                              @empty
-                                <tr>
-                                    <td colspan="3">kotong</td>
-                                </tr>
-                              @endforelse
-                            </tbody>
-                        </table>
+                      <div class="card-body table-responsive" style="height: 300px;">
+                        <div class="form-group">
+                            <label for="nim">Nim</label>
+                            <input type="text" class="form-control" placeholder="nim" name="nim" autocomplete="off" required
+                            id="nimInput" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <div class="autocomplete" aria-labelledby="nimInput">
+                              <a class="dropdown-item" href="#">Action</a>
+                              <a class="dropdown-item" href="#">Another action</a>
+                              <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                        </div>
                       </div>
                     </div> 
                 </div>

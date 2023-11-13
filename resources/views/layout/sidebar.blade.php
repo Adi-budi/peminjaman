@@ -49,6 +49,22 @@
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{ route('alat.index') }}" class="nav-link {{ (request()->is('alat*')) ? 'active' : '' }}">
+              <i class="fas fa-home "></i> &nbsp;&nbsp;&nbsp;&nbsp;
+              <p class="">
+                Peralatan
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('tas.index') }}" class="nav-link {{ (request()->is('tas*')) ? 'active' : '' }}">
+              <i class="fas fa-home "></i> &nbsp;&nbsp;&nbsp;&nbsp;
+              <p class="">
+                Tas
+              </p>
+            </a>
+          </li>
           <li class="nav-item {{ (request()->is('pengguna*')) ? 'menu-open' : '' }}">
             <a href="#" class="nav-link {{ (request()->is('pengguna*')) ? 'active' : '' }}">
               <i class="fas fa-users "></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

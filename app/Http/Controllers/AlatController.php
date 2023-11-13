@@ -14,19 +14,23 @@ class AlatController extends Controller
     }
     public function create()
     {
-        $ruangan = Ruangan::latest()->get();
-        return view('alat.create',compact('ruangan'))->with('i');
+        return view('alat.create');
     }
     public function store(Request $request)
     {
-        $flight = new Alat;
+        $alat = Alat::where('nama', $request->nama)->first();
+        // dd($alat);
+        if(!$alat){
+            $flight = new Alat;
   
             $flight->nama = $request->nama;
-            $flight->id_ruang = $request->id_ruang;
-            $flight->status_alat = 0;
+            $flight->jumlah = $request->jumlah;
             $flight->save();
-   
-        return redirect()->route('alat')->with('success','barang Berhasil ditambah');
+
+            return redirect()->route('alat.index')->with('success','barang Berhasil ditambah');
+        }else{
+            return redirect()->route('alat.index')->with('error','Alat '.$request->nama.' sudah terdaftar');
+        }
     }
     public function detail($id){
         $alat = DB::table('alats')->where('id_ruang',$id)->get();

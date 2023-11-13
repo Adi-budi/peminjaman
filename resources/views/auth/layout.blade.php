@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="{{ url('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ url('css/adminlte.min.css') }}">
+  <link rel="stylesheet" href="{{ url('css/style.css') }}">
 
   <link rel="stylesheet" href="{{ url('plugins/toastr/toastr.min.css') }}">
 
@@ -66,6 +67,14 @@
     $("#ngilang").click(function(){
       $("#sengiki").hide();
     });
+
+    $("#nimInput").keyup(function(){
+      if (this.value != "") {
+        $("[aria-labelledby='nimInput']").show(); 
+      }else{
+        $("[aria-labelledby='nimInput']").hide(); 
+      }
+    })
   });
   
 </script>

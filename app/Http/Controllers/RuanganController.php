@@ -1,14 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Ruangan;
+use App\Models\Ruang;
 use DB;
 use Illuminate\Http\Request;
 
 class RuanganController extends Controller
 {
     public function index() {
-        $ruangan = Ruangan::latest()->get();
+        $ruangan = Ruang::latest()->get();
         return view('ruangan.index',compact('ruangan'))->with('i');
     }
     public function create()

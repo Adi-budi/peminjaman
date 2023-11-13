@@ -30,7 +30,7 @@
                             <div class="card-header">
                                 <h3 class="card-title">Barang</h3>
                                 <div class="card-tools">
-                                    <a href="{{ route('alat.create') }}" type="button" class="btn btn-success btn-sm">Tambah Barang</a>
+                                    <a href="{{ route('tas.create') }}" type="button" class="btn btn-success btn-sm">Tambah Barang</a>
                                 </div>
                             </div>
 
@@ -39,16 +39,25 @@
                                     <thead>
                                         <tr>
                                             <th>No.</th>
-                                            <th>Nama Alat</th>
+                                            <th>label</th>
+                                            <th>Isi</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                      @forelse ($alat as $sis)
+                                      @forelse ($tas as $sis)
                                         <tr>
-                                            <td>{{ ++$i }}</td>
-                                            <td><a href="{{url('alat/detail',['id' => $sis->id])}}" class="text-secondary">{{ $sis->nama }}</a></td>
-                                            <td>{{ $sis->jumlah }}</td>
+                                            <td>{{ $sis->id }}</td>
+                                            <td><a href="{{url('alat/detail',['id' => $sis->id])}}" class="text-secondary">{{ $sis->label }}</a></td>
+                                            <td>
+                                                <?php
+                                                    for ($i=0; $i < count($detail); $i++) { 
+                                                        if($detail[$i]->tas == $sis->id){
+                                                            echo $detail[$i]->nama.", ";
+                                                        }
+                                                    }
+                                                ?>
+                                            </td>
                                             <td><a href="" class="btn btn-primary">Edit</a></td>
                                         </tr>
                                       @empty
