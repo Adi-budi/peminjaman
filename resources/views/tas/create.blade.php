@@ -55,12 +55,14 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Isi Tas</label>
-                                            @foreach ($alat as $sis)
-                                                <div class="form-check">
-                                                    <input type="checkbox" class="form-check-input" id="{{ $sis->nama }}" name="isi[]" value="{{ $sis->id }}">
-                                                    <label class="form-check-label" for="{{ $sis->nama }}">{{ $sis->nama }}</label>
-                                                </div>
-                                            @endforeach
+                                            <div class="row">
+                                                @foreach ($alat as $sis)
+                                                    <div class="form-check col-3">
+                                                        <input type="checkbox" class="form-check-input" id="{{ $sis->nama }}" name="isi[]" value="{{ $sis->id }}">
+                                                        <label class="form-check-label" for="{{ $sis->nama }}">{{ $sis->nama }}</label>
+                                                    </div>
+                                                @endforeach
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

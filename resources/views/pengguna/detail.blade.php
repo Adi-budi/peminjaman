@@ -28,16 +28,16 @@
                   <i class=" fas fa-user-circle"></i>
                 </div>
 
-                <h3 class="profile-username text-center">{{ $penggunalengkap->nama }}</h3>
+                <h3 class="profile-username text-center">{{ $pengguna[0]->nama }}</h3>
 
                 <p class="text-muted text-center">Peminjam</p>
 
                 <ul class="list-group list-group-unbordered mb-3">
                   <li class="list-group-item">
-                    <b>Nim</b> <a class="float-right">{{ $penggunalengkap->nim }}</a>
+                    <b>Nim</b> <a class="float-right">{{ $pengguna[0]->nim }}</a>
                   </li>
                   <li class="list-group-item">
-                    <b>Meminjam Sebanyak</b> <a class="float-right">1,322</a>
+                    <b>Meminjam Sebanyak</b> <a class="float-right">{{ $totalpinjam[0]->per}} kali</a>
                   </li>
                 </ul>
 
@@ -57,7 +57,7 @@
                 <strong><i class="fas fa-phone mr-1"></i> Nomor </strong>
 
                 <p class="text-muted">
-                	{{ $penggunalengkap->nomor_telp }}
+                	{{ $pengguna[0]->nomor_telp }}
                 </p>
 
                 <hr>
@@ -85,14 +85,22 @@
                         <img class="img-circle img-bordered-sm" src="{{ url('img/blank.png') }}" alt="user image">
                         <!-- <i class="fas fa-user img-circle img-bordered-sm"></i> -->
                         <span class="username">
-                          <a href="#">{{ $penggunalengkap->nama }}</a>
+                          <a href="#">{{ $sis->nama }}</a>
                           <a href="#" class="float-right btn-tool" id="ngilang"><i class="fas fa-times"></i></a>
                         </span>
-                        <span class="description">Tanggal Pinjam {{ $penggunalengkap->created_at }}</span>
+                        <span class="description">Tanggal Pinjam {{ $sis->created_at }}</span>
                       </div>
                       <!-- /.user-block -->
                       <p>
-                        Saya Meminjam Sebuah <u>{{ $penggunalengkap->nama_alat}}</u> untuk {{ $penggunalengkap->keperluan }} di ruang {{ $penggunalengkap->nama_ruang }}
+                        Saya Meminjam <u>{{ $detail[0]->label }}</u> yang berisi <b>
+                          <?php
+                              for ($i=0; $i < count($detail); $i++) { 
+                                  if($detail[$i]->id_pengguna == $sis->id){
+                                      echo $detail[$i]->nama.", ";
+                                  }
+                              }
+                          ?>
+                        </b> untuk {{ $sis->keperluan }} di ruang <b>{{ $sis->nama_ruang }}</b>
                       </p>
                     </div>
                     @empty
@@ -110,19 +118,19 @@
                       <div class="form-group row">
                         <label for="inputName2" class="col-sm-2 col-form-label">Nim</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="inputName2" placeholder="nim" value="{{$penggunalengkap->nim}}" disabled>
+                          <input type="text" class="form-control" id="inputName2" placeholder="nim" value="{{$pengguna[0]->nim}}" disabled>
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="inputName" class="col-sm-2 col-form-label">Nama</label>
                         <div class="col-sm-10">
-                          <input type="email" class="form-control" id="inputName" placeholder="nama" value="{{$penggunalengkap->nama}}">
+                          <input type="text" class="form-control" id="inputName" placeholder="nama" value="{{$pengguna[0]->nama}}">
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="inputEmail" class="col-sm-2 col-form-label">Nomor telephone</label>
                         <div class="col-sm-10">
-                          <input type="email" class="form-control" id="inputEmail" placeholder="No. telp" value="{{$penggunalengkap->nomor_telp}}">
+                          <input type="number" class="form-control" id="inputEmail" placeholder="No. telp" value="{{$pengguna[0]->nomor_telp}}">
                         </div>
                       </div>
                       <div class="form-group row">

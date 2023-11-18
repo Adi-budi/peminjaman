@@ -31,6 +31,7 @@
       margin: 0;
       font-family: Arial;
       font-size: 17px;
+      overflow: hidden;
     }
 
     #myVideo {
@@ -76,7 +77,47 @@
       }
     })
   });
-  
+
+  var refreshIntervalId;
+
+  $('#formPinjam').submit(function(e) {
+        e.preventDefault();
+       
+        var url = $(this).attr("action");
+        var data = $('#formPinjam').serialize();
+
+        $.ajax({
+                type:'POST',
+                url: url,
+                data: data,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: (response) => {
+                    $("#nungguAdmin").removeClass("d-none");
+                    $("#nungguAdmin").addClass("d-flex");
+                    $("#formPinjam").hide();
+                    refreshIntervalId = setInterval( "update()", 1000 );
+                }
+           });
+    });
+
+    function update(){
+      $.ajax({
+        type: "GET",
+        url: "{{ route('dashboard.respon') }}",
+        success: function(data){
+          if(data == "isi lagi"){
+            $("#nungguAdmin").removeClass("d-flex");
+            $("#nungguAdmin").addClass("d-none");
+            $("#formPinjam").show();
+            $("#formPinjam")[0].reset();
+            clearInterval(refreshIntervalId);
+          }
+        }
+      });
+
+    }
 </script>
 @if ($message = Session::get('success'))
 <script>

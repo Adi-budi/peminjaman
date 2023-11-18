@@ -62,7 +62,7 @@
                             <tbody>
                               @forelse ($pengguna_selesai as $sisi)
                                 <tr>
-                                    @if ($sisi->status =='1')
+                                    @if ($sisi->tgl_kembali)
                                         <td>{{ $sisi->nama }}</td>
                                         <td class="text-success" title="sudah dikembalikan"><i class="fas fa-check-circle"></i></td>
                                     @else
@@ -94,7 +94,17 @@
             			<!-- <a class=" text-light float-end" href="{{ route('logout') }}" role="button">LOGIN</a> -->
                   </div>
                   <div class="card-body">
-                    <form action="{{ route('dashboard.store') }}" method="POST">
+                    <div class="page-wrap flex-row align-items-center d-none" id="nungguAdmin">
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-md-12 text-center">
+                                    <span class="display-1 d-block">Tunggu Sebentar</span>
+                                    <div class="mb-4 lead">menunggu diaprove admin okeh wkwk</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <form action="{{ route('dashboard.store') }}" id="formPinjam" method="POST">
                                 {{ @csrf_field() }}
                                     <div class="row justify-content-center">
                                         <div class="col-12">
@@ -128,17 +138,6 @@
                                         <div class="col-12">
                                           <div class="row">
                                             <div class="col-12 col-md-6 p-1">
-                                              <div class="form-group">
-                                                  <label for="alat">Barang</label>
-                                                  <select name="alat" class="form-control select2" required>
-                                                      <option hidden selected disabled>Pilih Barang</option>
-                                                      @forelse ($alat as $sis)
-                                                      <option value="{{ $sis->id }}">{{ $sis->nama }}</option>
-                                                      @empty
-                                                      <option disabled>kotong</option>
-                                                    @endforelse
-                                                  </select>
-                                              </div>
                                             </div>
                                             <div class="col-12 col-md-6 p-1">
                                               <div class="form-group">

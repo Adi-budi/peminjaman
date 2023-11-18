@@ -40,6 +40,7 @@
                                         <tr>
                                             <th>No.</th>
                                             <th>Nama Alat</th>
+                                            <th>Jumlah</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>

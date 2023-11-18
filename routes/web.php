@@ -21,7 +21,10 @@ Route::prefix('/')->namespace('App\Http\Controllers')->group(function(){
     Route::get('/','AdminController@dashboard')->name('dashboard');
     Route::get('/dashboard','AdminController@dashboardLain')->name('dashboard2');
     Route::post('/input','AdminController@store')->name('dashboard.store');
+    Route::post('/input_detail','AdminController@store_detail')->name('dashboard.store_detail');
+    Route::get('/respon','AdminController@respon')->name('dashboard.respon');
     Route::get('/ubahstatus1/{id}/{id1}','AdminController@ubahstatus1')->name('ubahstatus1');
+    Route::post('/cekAlat','AdminController@cekAlat')->name('cekAlat');
 
     Route::controller(LoginController::class)->group(function() {
         Route::get('/login', 'login')->name('login');
@@ -56,8 +59,8 @@ Route::prefix('/')->namespace('App\Http\Controllers')->group(function(){
         Route::get('pengguna', 'index')->name('pengguna');
         Route::get('pengguna/create', 'create')->name('pengguna.create');
         Route::post('pengguna/store', 'store')->name('pengguna.store');
-        Route::get('pengguna/ubahstatus1/{id}/{id1}', 'ubahstatus1')->name('pengguna.ubahstatus1');
-        Route::get('pengguna/ubahstatus0/{id}/{id1}', 'ubahstatus0')->name('pengguna.ubahstatus0');
+        Route::get('pengguna/ubahstatus1/{id}', 'ubahstatus1')->name('pengguna.ubahstatus1');
+        Route::get('pengguna/ubahstatus0/{id}', 'ubahstatus0')->name('pengguna.ubahstatus0');
         Route::get('pengguna/detail/{id}/', 'detail')->name('pengguna.detail');
     });
     Route::resource('alat', AlatController::class)->middleware('auth');

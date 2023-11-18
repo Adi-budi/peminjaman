@@ -4,20 +4,25 @@ namespace App\Http\Controllers;
 use App\Models\Pengguna;
 use App\Models\Alat;
 use DB;
-use App\Models\Ruangan;
+use App\Models\Ruang;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
+use DateTime;
 
 class PenggunaController extends Controller
 {
     public function index() {
         $pengguna = Pengguna::latest()->get();
-        return view('pengguna.index',compact('pengguna'))->with('i');
+        $pengguna2 = DB::table('penggunas')
+            ->join('ruangans', 'penggunas.ruangan', '=', 'ruangans.id')
+            ->select('penggunas.*', 'ruangans.nama_ruang')
+            ->get();
+        return view('pengguna.index',compact('pengguna','pengguna2'))->with('i');
     }
     public function create()
     {
-        $alat = DB::table('alats')->where('status_alat',0)->get();
-        $ruangan = Ruangan::latest()->get();
+        $alat = DB::table('tas')->get();
+        $ruangan = Ruang::latest()->get();
         return view('pengguna.create',compact('alat','ruangan'))->with('i');
     }
     public function store(Request $request)
@@ -28,51 +33,44 @@ class PenggunaController extends Controller
             $flight->nama = $request->nama;
             $flight->nomor_telp = $request->nomor_telp;
             $flight->keperluan = $request->keperluan;
-            $flight->alat = $request->alat;
             $flight->ruangan = $request->ruangan;
-            $flight->status = 0;
             $flight->save();
 
-        $barang = Alat::find($flight->alat);
+        // $barang = Alat::find($flight->alat);
 
-            $barang->status_alat = 1;
-            $barang->save();
+        //     $barang->status_alat = 1;
+        //     $barang->save();
    
         return redirect()->route('pengguna')->with('success','Pengguna Berhasil ditambah');
     }
-    public function ubahstatus1(Request $request,$id,$id_barang){
+    public function ubahstatus1(Request $request,$id){
         $flight = Pengguna::find($id);
-            $flight->status = 1;
+            $flight->tgl_kembali = new DateTime();
             $flight->save();
-
-        $barang = Alat::find($id_barang);
-            $barang->status_alat = 0;
-            $barang->save();
         return redirect()->route('pengguna')->with('success','Status Berhasil diubah');
 
     }
-    public function ubahstatus0(Request $request,$id,$id_barang){
+    public function ubahstatus0(Request $request,$id){
             $flight = Pengguna::find($id);
-            $flight->status = 0;
+            $flight->tgl_kembali = null;
             $flight->save();
-
-        $barang = Alat::find($id_barang);
-            $barang->status_alat = 1;
-            $barang->save();
         return redirect()->route('pengguna')->with('success','Status Berhasil diubah');
     }
     public function detail($id){
-        $pengguna = DB::table('penggunas')->where('nim',$id)->get();
+        $pengguna = Pengguna::where('nim',$id)
+                    ->join('ruangans', 'ruangans.id', '=', 'penggunas.ruangan')
+                    ->select("penggunas.*", "ruangans.nama_ruang")->get();
         DB::connection()->enableQueryLog();
-        // $penggunae = Pengguna::findOrFail($id);
-        $penggunalengkap = DB::table('penggunas')
-            ->join('ruangans', 'penggunas.ruangan', '=', 'ruangans.id')
-            ->join('alats', 'penggunas.alat', '=', 'alats.id')
-            ->select('penggunas.*', 'ruangans.nama_ruang', 'alats.nama as nama_alat','ruangans.id as id_ruangan', 'alats.id as id_barang')
-            ->where('penggunas.nim',$id)
-            ->first();
+        $detail = DB::table('detail_pengguna')
+                    ->join('penggunas', 'penggunas.id', '=', 'detail_pengguna.id_pengguna')
+                    ->join('alats', 'alats.id', '=', 'detail_pengguna.id_alat')
+                    ->join('tas', 'tas.id', '=', 'detail_pengguna.id_tas')->get();
+        $totalpinjam = DB::table('penggunas')
+             ->select(DB::raw('count(*) as per, nim as nim'))
+             ->groupBy('nim')
+             ->where('penggunas.nim',$id)
+             ->get();
         $queries = DB::getQueryLog();
-        return view('pengguna.detail',compact('pengguna','penggunalengkap'))->with('i');
-        // dd($queries);
+        return view('pengguna.detail',compact('pengguna','detail','totalpinjam'))->with('i');
     }
 }

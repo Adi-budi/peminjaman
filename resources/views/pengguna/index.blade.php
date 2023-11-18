@@ -40,24 +40,27 @@
                                         <tr>
                                             <th>No.</th>
                                             <th>Nama Peminjam</th>
-                                            <th class="col-4">Status</th>
+                                            <th>Tempat</th>
+                                            <th class="col-2">Status</th>
                                             <th class="col-2"><center>Aksi untuk status</center></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                      @forelse ($pengguna as $sis)
+                                      @forelse ($pengguna2 as $sis)
                                         <tr>
                                             <td>{{ ++$i }}</td>
                                             <td><a href="{{url('pengguna/detail',['nim' => $sis->nim])}}" class="text-secondary">{{ $sis->nama }}</a></td>
-                                            @if ($sis->status =='0')
+                                            <td>{{ $sis->nama_ruang}}</td>
+                                            @if (!$sis->tgl_kembali)
                                                 <td><span style="padding: 4px; background-color: red; border-radius:50px; color: white; font-size: 10px;">Belum Kembali</span></td>
                                             
+                                                <td style="font-size: 10px;">
+                                                    <a href="{{ url('pengguna/ubahstatus1',['id' => $sis->id]) }}" class="text-light bg-success" style="padding: 6px; border-radius:30px;" title="klik untuk mengubah">Sudah kembali</a> &nbsp;&nbsp;&nbsp;
+                                                    <a href="{{ url('pengguna/ubahstatus0',['id' => $sis->id]) }}" class="text-light bg-danger" style="padding: 6px;border-radius:30px;" title="klik untuk mengubah">Belum kembali</a></td>
                                             @else
                                                 <td><span style="padding: 5px; background-color: green; border-radius:50px; color: white; font-size: 10px;">Sudah Kembali</span></td>
+                                                <td><i class="fas fa-check-circle text-success"></i></td>
                                             @endif
-                                            <td style="font-size: 10px;">
-                                                <a href="{{ url('pengguna/ubahstatus1',['id' => $sis->id, 'id1' => $sis->alat]) }}" class="text-light bg-success" style="padding: 6px; border-radius:30px;" title="klik untuk mengubah">Sudah kembali</a> &nbsp;&nbsp;&nbsp;
-                                                <a href="{{ url('pengguna/ubahstatus0',['id' => $sis->id, 'id1' => $sis->alat]) }}" class="text-light bg-danger" style="padding: 6px;border-radius:30px;" title="klik untuk mengubah">Belum kembali</a></td>
                                         </tr>
                                       @empty
                                         <tr>

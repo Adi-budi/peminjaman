@@ -78,7 +78,7 @@
                                             <select name="alat" class="form-control select2" >
                                                 <option hidden selected disabled>Pilih Barang</option>
                                                 @forelse ($alat as $sis)
-                                                <option value="{{ $sis->id }}">{{ $sis->nama }}</option>
+                                                <option value="{{ $sis->id }}">{{ $sis->label }}</option>
                                                 @empty
                                                 <option disabled>kotong</option>
                                               @endforelse

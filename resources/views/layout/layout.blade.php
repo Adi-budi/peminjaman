@@ -54,12 +54,62 @@
 <!-- Page specific script -->
 <script type="text/javascript">
   $(function() {
+    update();
     $('.select2').select2();
     $("#ngilang").click(function(){
       $("#sengiki").hide();
     });
   });
-  
+
+  var refreshIntervalId = setInterval( "update()", 1000 );
+
+  function update(){
+    $.ajax({
+      type: "GET",
+      url: "{{ route('dashboard.respon') }}",
+      success: function(data){
+        if(data != "isi lagi"){
+            clearInterval(refreshIntervalId);
+            $("#id_pengguna").val(data.id);
+            var isi = "<dl class='row'>\
+                        <dt class='col-sm-4'>Nim</dt>\
+                        <dd class='col-sm-8'>"+data.nim+"</dd>\
+                        <dt class='col-sm-4'>Nama</dt>\
+                        <dd class='col-sm-8'>"+data.nama+"</dd>\
+                        <dt class='col-sm-4'>Notelp</dt>\
+                        <dd class='col-sm-8'>"+data.nomor_telp+"</dd>\
+                        <dt class='col-sm-4'>Keperluan</dt>\
+                        <dd class='col-sm-8'>"+data.keperluan+"</dd>\
+                              </dl>";
+            $("#nungguAdmin").removeClass("d-flex");
+            $("#nungguAdmin").addClass("d-none");
+            $("#PinjamanBaru").removeClass("d-none");
+            $("#PinjamanBaru #isi").html(isi);
+          }
+        console.log(data);
+      }
+    });
+
+  }
+
+  function cekAlat() {
+    var id = $("#tas").val();
+
+    $.ajax({
+        type:'POST',
+        url: "{{ route('cekAlat') }}",
+        data: {
+          "_token": "{{ csrf_token() }}",
+          "id": id
+        },
+        success: (response) => {
+            $('input[name="isi[]"]').prop('checked', false);
+          response.forEach(function (item, index) {
+            $('input[name="isi[]"][value="'+item.alat+'"]').prop('checked', true);
+          })
+        }
+   });
+  }
 </script>
 @if ($message = Session::get('success'))
 <script>

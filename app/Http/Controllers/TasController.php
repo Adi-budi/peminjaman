@@ -18,7 +18,7 @@ class TasController extends Controller
     public function index()
     {
         $tas = Tas::latest()->get();
-        $detail = DB::table('detail_tas')->join('alat', 'alat.id', '=', 'detail_tas.alat')->get();
+        $detail = DB::table('detail_tas')->join('alats', 'alats.id', '=', 'detail_tas.alat')->get();
         return view('tas.index',compact('tas', 'detail'));
     }
 

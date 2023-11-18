@@ -40,31 +40,6 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item">
-            <a href="{{ route('ruangan') }}" class="nav-link {{ (request()->is('ruangan*')) ? 'active' : '' }}">
-              <i class="fas fa-home "></i> &nbsp;&nbsp;&nbsp;&nbsp;
-              <p class="">
-                Ruangan
-                <!-- <span class="right "><i class="fas fa-info-circle"></i></span> -->
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ route('alat.index') }}" class="nav-link {{ (request()->is('alat*')) ? 'active' : '' }}">
-              <i class="fas fa-home "></i> &nbsp;&nbsp;&nbsp;&nbsp;
-              <p class="">
-                Peralatan
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ route('tas.index') }}" class="nav-link {{ (request()->is('tas*')) ? 'active' : '' }}">
-              <i class="fas fa-home "></i> &nbsp;&nbsp;&nbsp;&nbsp;
-              <p class="">
-                Tas
-              </p>
-            </a>
-          </li>
           <li class="nav-item {{ (request()->is('pengguna*')) ? 'menu-open' : '' }}">
             <a href="#" class="nav-link {{ (request()->is('pengguna*')) ? 'active' : '' }}">
               <i class="fas fa-users "></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -85,6 +60,40 @@
                   {{ (request()->is('pengguna')) ? 'active' : ((request()->is('pengguna/detail*')) ? 'active' : '')}}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Tabel data pengguna</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item 
+            {{  (request()->is('ruangan*')) ? 'menu-open' : 
+                ((request()->is('alat*')) ? 'menu-open' : 
+                ((request()->is('tas*')) ? 'menu-open' : '')) }}">
+            <a href="#" class="nav-link {{ (request()->is('ruangan*')) ? 'active' : 
+                ((request()->is('alat*')) ? 'active' : 
+                ((request()->is('tas*')) ? 'active' : ''))}}">
+              <i class="fas fa-tools "></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <p class="">
+                Pengaturan
+                <i class="right fas fa-angle-left "></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('ruangan') }}" class="nav-link {{ (request()->is('ruangan*')) ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Ruangan</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('alat.index') }}" class="nav-link {{ (request()->is('alat*')) ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Peralatan</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('tas.index') }}" class="nav-link {{ (request()->is('tas*')) ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Tas</p>
                 </a>
               </li>
             </ul>

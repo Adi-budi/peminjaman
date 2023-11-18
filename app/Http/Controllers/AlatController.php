@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Alat;
-use App\Models\Ruangan;
+use App\Models\Ruang;
 use DB;
 use Illuminate\Http\Request;
 
@@ -25,6 +25,7 @@ class AlatController extends Controller
   
             $flight->nama = $request->nama;
             $flight->jumlah = $request->jumlah;
+            $flight->status_alat = 0;
             $flight->save();
 
             return redirect()->route('alat.index')->with('success','barang Berhasil ditambah');

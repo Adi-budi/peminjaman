@@ -13,7 +13,7 @@ use Laravel\Sanctum\HasApiTokens;
 class Ruang extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
-    protected $table = "ruang";
+    protected $table = "ruangans";
 
     protected $fillable = [
         'id',

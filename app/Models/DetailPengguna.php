@@ -9,15 +9,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Sanctum\HasApiTokens;
 
-class Alat extends Model
+class DetailPengguna extends Model
 {
    use HasApiTokens, HasFactory, Notifiable;
-   protected $table = "alats";
+   protected $table = "detail_pengguna";
 
     protected $fillable = [
         'id',
-        'nama',
-        'jumlah',
-        'status_alat'
+        'id_pengguna',
+        'id_tas',
+        'id_alat'
     ];
 }
