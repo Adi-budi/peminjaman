@@ -25,19 +25,16 @@
                 <div class="container-fluid">
                     <div class="card card-warning">
                       <div class="card-header">
-                        <h3 class="card-title">Belum mengembalikan barang</h3>
+                        <h3 class="card-title">Ojo Dihapus</h3>
                       </div>
-                      <div class="card-body table-responsive" style="height: 300px;">
-                        <div class="form-group">
+                      <div class="card-body" style="height: 300px;">
+                        <!-- <div class="d-none">
                             <label for="nim">Nim</label>
-                            <input type="text" class="form-control" placeholder="nim" name="nim" autocomplete="off" required
-                            id="nimInput" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <div class="autocomplete" aria-labelledby="nimInput">
-                              <a class="dropdown-item" href="#">Action</a>
-                              <a class="dropdown-item" href="#">Another action</a>
-                              <a class="dropdown-item" href="#">Something else here</a>
+                            <div class="input-group mb-3">
+                              <input type="text" class="form-control"  placeholder="Masukkan nim" aria-label="Recipient's username" aria-describedby="button-addon2" name="nim">
+                              <button class="btn btn-outline-secondary" type="button" id="pilih" id="button-addon2"><i class="fas fa-search"></i></button>
                             </div>
-                        </div>
+                        </div> -->
                       </div>
                     </div> 
                 </div>
@@ -99,7 +96,7 @@
                             <div class="row justify-content-center">
                                 <div class="col-md-12 text-center">
                                     <span class="display-1 d-block">Tunggu Sebentar</span>
-                                    <div class="mb-4 lead">menunggu diaprove admin okeh wkwk</div>
+                                    <div class="mb-4 lead">menunggu diaprove admin</div>
                                 </div>
                             </div>
                         </div>
@@ -108,9 +105,29 @@
                                 {{ @csrf_field() }}
                                     <div class="row justify-content-center">
                                         <div class="col-12">
-                                            <div class="form-group">
-                                                <label for="nim">Nim</label>
-                                                <input type="number" class="form-control" id="nim" placeholder="nim" name="nim" autocomplete="off" required>
+                                            <div class="form-group" id="input_nim">
+                                                <label for="nim" class="form-label">Nim</label>
+                                                <input class="form-control" list="datalistOptions" id="nim" name="nim2" placeholder="Masukkan Nim">
+                                                <datalist id="datalistOptions">
+                                                    @foreach ($nim as $n)
+                                                        <option value="{{$n->nim}}">{{$n->nama}}</option>
+                                                    @endforeach
+                                                </datalist>
+                                            </div>
+                                            <div class="form-group d-none" id="input_serch">
+                                                <!-- <label for="nim">Nim</label> -->
+                                                <div class="form-group">
+                                                    <!-- <select id="nim" class="form-control select2"> -->
+                                                      <option selected disabled hidden>Pilih</option>
+                                                    @foreach ($pengguna as $soplist)
+                                                      <option value="{{ $soplist->nim }}">{{ $soplist->nim }}</option>
+                                                    @endforeach
+                                                    <!-- </select> -->
+                                                <!-- <input type="text" class="form-control" placeholder="nim" name="nim" autocomplete="off" required onkeyup="isi_otomatis()" 
+                                                id="nimInput" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <div class="autocomplete" aria-labelledby="nimInput" id="isinim">
+                                                </div> -->
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-12">
@@ -134,30 +151,23 @@
                                           </div>
                                         </div>
                                     </div>
-                                    <div class="row justify-content-center">
-                                        <div class="col-12">
-                                          <div class="row">
-                                            <div class="col-12 col-md-6 p-1">
-                                            </div>
-                                            <div class="col-12 col-md-6 p-1">
-                                              <div class="form-group">
-                                                  <label for="ruangan">Nama Ruangan</label>
-                                                  <select name="ruangan" class="form-control select2" required> 
-                                                      <option hidden selected disabled>Pilih</option>
-                                                      @forelse ($ruangan as $sis)
-                                                      <option value="{{ $sis->id }}">{{ $sis->nama_ruang }}</option>
-                                                      @empty
-                                                      <option disabled>kotong</option>
-                                                    @endforelse
-                                                  </select>
-                                              </div>
-                                            </div>
-                                          </div>
-                                        </div>
+                                    <div style="width:auto;">
+                                      <div class="form-group">
+                                          <label for="ruangan">Nama Ruangan</label>
+                                          <select name="ruangan" class="form-control select2" required> 
+                                              <option hidden selected disabled>Pilih</option>
+                                              @forelse ($ruangan as $sis)
+                                              <option value="{{ $sis->id }}">{{ $sis->nama_ruang }}</option>
+                                              @empty
+                                              <option disabled>kotong</option>
+                                            @endforelse
+                                          </select>
+                                      </div>
                                     </div>
                                 <div class="card-footer">
                                     <button type="submit" class="btn btn-info">Simpan</button>
-                                    <a href="{{ route('login') }}" class="text-secondary" style="float: right; margin-top:3px;">Login</a>
+                                    <button type="reset" class="btn btn-danger" id="iniklik">Refresh</button>
+                                    <!-- <a href="{{ route('login') }}" class="text-secondary" style="float: right; margin-top:3px;">Login</a> -->
                                 </div>
                             </form>
                   </div>
@@ -172,26 +182,25 @@
                       <div class="card-header">
                         <h3 class="card-title">Barang yang tersedia</h3>
                       </div>
-                      <div class="card-body table-responsive p-0" style="height: 420px;">
+                      <div class="card-body table-responsive p-0" style="height: 420px; font-size: 12px;">
                         <table class="table table-head-fixed text-nowrap">
                             <thead>
                                 <tr>
                                     <th>No.</th>
                                     <th>Nama barang</th>
-
                                 </tr>
                             </thead>
                             <tbody>
-                              @forelse ($alat as $sis)
+                                <tr>
+                                    <td colspan="3">kotong</td>
+                                </tr>
+                              <!-- @forelse ($alat as $sis)
                                 <tr>
                                     <td>{{ ++$i }}</td>
                                     <td>{{ $sis->nama }}</td>
                                 </tr>
-                              @empty
-                                <tr>
-                                    <td colspan="3">kotong</td>
-                                </tr>
-                              @endforelse
+                              @empty -->
+                              <!-- @endforelse -->
                             </tbody>
                         </table>
                       </div>

@@ -8,12 +8,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Dashboard v2</h1>
+                    <h1 class="m-0">Peminjaman</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Dashboard v2</li>
+                        <li class="breadcrumb-item active">Peminjaman</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -35,7 +35,7 @@
                             </div>
 
                             <div class="card-body table-responsive p-0" style="height: 300px;">
-                                <table class="table table-head-fixed text-nowrap">
+                                <table class="table table-head-fixed text-nowrap table-hover">
                                     <thead>
                                         <tr>
                                             <th>No.</th>
@@ -59,7 +59,10 @@
                                                     <a href="{{ url('pengguna/ubahstatus0',['id' => $sis->id]) }}" class="text-light bg-danger" style="padding: 6px;border-radius:30px;" title="klik untuk mengubah">Belum kembali</a></td>
                                             @else
                                                 <td><span style="padding: 5px; background-color: green; border-radius:50px; color: white; font-size: 10px;">Sudah Kembali</span></td>
-                                                <td><i class="fas fa-check-circle text-success"></i></td>
+                                                <td style="font-size: 10px;">
+                                                    <a href="{{ url('pengguna/ubahstatus1',['id' => $sis->id]) }}" class="text-light bg-success" style="padding: 6px; border-radius:30px;" title="klik untuk mengubah">Sudah kembali</a> &nbsp;&nbsp;&nbsp;
+                                                    <a href="{{ url('pengguna/ubahstatus0',['id' => $sis->id]) }}" class="text-light bg-danger" style="padding: 6px;border-radius:30px;" title="klik untuk mengubah">Belum kembali</a>
+                                                </td>
                                             @endif
                                         </tr>
                                       @empty

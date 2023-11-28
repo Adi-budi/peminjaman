@@ -17,6 +17,10 @@
   <link rel="stylesheet" href="{{ url('css/style.css') }}">
   <link rel="stylesheet" href="{{ url('plugins/select2/css/select2.min.css') }}">
   <link rel="stylesheet" href="{{ url('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 <div class="wrapper">
@@ -59,6 +63,9 @@
     $("#ngilang").click(function(){
       $("#sengiki").hide();
     });
+      $("#iniklik").click(function(){
+      window.location.reload();
+    });
   });
 
   var refreshIntervalId = setInterval( "update()", 1000 );
@@ -85,10 +92,15 @@
             $("#nungguAdmin").addClass("d-none");
             $("#PinjamanBaru").removeClass("d-none");
             $("#PinjamanBaru #isi").html(isi);
+            var url = '{{ route("dashboard.hapus", ":id") }}';
+            url = url.replace(':id', data.id);
+            $("#hapusbang").attr("href", url);
+            // window.location.reload();
           }
         console.log(data);
       }
     });
+        // 
 
   }
 

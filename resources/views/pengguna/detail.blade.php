@@ -80,7 +80,7 @@
                   <div class="active tab-pane" id="activity">
                     <!-- Post -->
                   @forelse ($pengguna as $sis)
-                    <div class="post" id="sengiki">
+                    <div class="post mb-2" id="sengiki">
                       <div class="user-block">
                         <img class="img-circle img-bordered-sm" src="{{ url('img/blank.png') }}" alt="user image">
                         <!-- <i class="fas fa-user img-circle img-bordered-sm"></i> -->
@@ -92,12 +92,14 @@
                       </div>
                       <!-- /.user-block -->
                       <p>
-                        Saya Meminjam <u>{{ $detail[0]->label }}</u> yang berisi <b>
-                          <?php
-                              for ($i=0; $i < count($detail); $i++) { 
-                                  if($detail[$i]->id_pengguna == $sis->id){
-                                      echo $detail[$i]->nama.", ";
-                                  }
+                        Saya Meminjam               
+                          <?php 
+                              echo "<u>".$sis->label ."</u> yang berisi";
+                              for ($i=0; $i < count($detail); $i++) {
+                                  if($detail[$i]->id_pengguna == $sis->id){?>
+                                    
+                                    <b><?php  echo $detail[$i]->nama.", ";?></b>
+                                  <?php }
                               }
                           ?>
                         </b> untuk {{ $sis->keperluan }} di ruang <b>{{ $sis->nama_ruang }}</b>
@@ -114,7 +116,7 @@
 
                   <div class="tab-pane" id="settings">
                   	<!-- tambah route disini -->
-                    <form class="form-horizontal">
+                    <form class="form-horizontal" action="" method="POST">
                       <div class="form-group row">
                         <label for="inputName2" class="col-sm-2 col-form-label">Nim</label>
                         <div class="col-sm-10">
@@ -136,7 +138,7 @@
                       <div class="form-group row">
                         <div class="offset-sm-2 col-sm-10">
                           <button type="submit" class="btn btn-primary">Ubah</button>
-                          <button type="reset" class="btn btn-danger">batal</button>
+                          <button type="reset"  id="iniklik" class="btn btn-danger">batal</button>
                         </div>
                       </div>
                     </form>
@@ -159,3 +161,4 @@
 
 </div>
 @endsection
+<!--  -->

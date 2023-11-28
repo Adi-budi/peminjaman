@@ -24,9 +24,15 @@ class AdminController extends Controller
              // var_dump($totaltahun);
         $alat = DB::table('alats')->where('status_alat',0)->get();
         $ruangan = Ruang::latest()->get();
-        $pengguna_selesai = DB::table('penggunas')->whereDate('created_at', Carbon::today())->get();
-        $pengguna = DB::table('penggunas')->whereDate('created_at', Carbon::today())->get();
-        return view('dashboard2',compact('alat','ruangan','totaltahun','pengguna_selesai','pengguna'))->with('i');
+        $pengguna_selesai = DB::table('penggunas')->whereDate('created_at', Carbon::today())->orderBy('updated_at', 'desc')->get();
+        $pengguna = DB::table('penggunas')
+                    ->select('nim', DB::raw('count(*) as total'))
+                    ->groupBy('nim')
+                    ->get();
+
+        $nim = Pengguna::select('nim', 'nama')->groupBy('nim')->get();
+        // dd($pengguna);
+        return view('dashboard2',compact('alat','ruangan','totaltahun','pengguna_selesai','pengguna', 'nim'))->with('i');
         // }
 
         // return redirect()->route('login')
@@ -59,7 +65,7 @@ class AdminController extends Controller
              ->groupBy('tahun')
              ->get();
              // var_dump($totaltahun);
-        $pengguna = DB::table('penggunas')->whereDate('created_at', Carbon::today())->get();
+        $pengguna = DB::table('penggunas')->whereDate('created_at', Carbon::today())->orderBy('created_at', 'desc')->get();
 
         $tas = Tas::all();
         $alat = Alat::all();
@@ -89,6 +95,16 @@ class AdminController extends Controller
             return $id;
         }
     }
+    public function getnim(Request $request){
+        $data = Pengguna::All()->where('nim',$request->nim);
+        return response()->json($data);
+    }
+    public function getsemuadatapengguna($id= 0){
+        // $id ="121711011";
+        $data = Pengguna::latest()->where('nim',$id)->first();
+        return response()->json($data);
+
+    }
 
     public function cekAlat(Request $request)
     {
@@ -108,5 +124,16 @@ class AdminController extends Controller
         }
 
         return redirect()->route('dashboard2')->with('success','Pengguna Berhasil ditambah');
+    }
+    public function hapus($id){
+            
+        //get post by ID
+        $post = Pengguna::findOrFail($id);
+
+        //delete post
+        $post->delete();
+
+        //redirect to index
+        return redirect()->back()->with(['success' => 'Data Berhasil Dihapus!']);
     }
 }

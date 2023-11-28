@@ -23,6 +23,9 @@ Route::prefix('/')->namespace('App\Http\Controllers')->group(function(){
     Route::post('/input','AdminController@store')->name('dashboard.store');
     Route::post('/input_detail','AdminController@store_detail')->name('dashboard.store_detail');
     Route::get('/respon','AdminController@respon')->name('dashboard.respon');
+    Route::get('/getsemuadatapengguna/{id}','AdminController@getsemuadatapengguna')->name('dashboard.getsemuadatapengguna');
+    Route::post('/getnim','AdminController@getnim')->name('dashboard.getnim');
+    Route::get('/hapus/{id}','AdminController@hapus')->name('dashboard.hapus');
     Route::get('/ubahstatus1/{id}/{id1}','AdminController@ubahstatus1')->name('ubahstatus1');
     Route::post('/cekAlat','AdminController@cekAlat')->name('cekAlat');
 

@@ -8,12 +8,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Dashboard v2</h1>
+                    <h1 class="m-0">Penggunaan</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Dashboard v2</li>
+                        <li class="breadcrumb-item active">Penggunaan</li>
                     </ol>
                 </div><!-- /.col -->
 
@@ -35,7 +35,18 @@
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
-            <div class="row">
+
+            <center>
+                <i class="fas fa-tools text-secondary" style="font-size:100px; margin-top: 100px;"></i>
+                <h1 class="text-uppercase text-secondary mt-5">Under Maintenance</h1></center>
+        </div>
+        <!--/. container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+@endsection
+<!--             <div class="row">
 
                 <div class="col-md-12">
 
@@ -108,11 +119,4 @@
 
                 </div>
 
-            </div>
-        </div>
-        <!--/. container-fluid -->
-    </section>
-    <!-- /.content -->
-</div>
-<!-- /.content-wrapper -->
-@endsection
+            </div> -->

@@ -16,7 +16,7 @@ class PenggunaController extends Controller
         $pengguna2 = DB::table('penggunas')
             ->join('ruangans', 'penggunas.ruangan', '=', 'ruangans.id')
             ->select('penggunas.*', 'ruangans.nama_ruang')
-            ->get();
+            ->orderBy('created_at', 'desc')->get();
         return view('pengguna.index',compact('pengguna','pengguna2'))->with('i');
     }
     public function create()
@@ -58,19 +58,25 @@ class PenggunaController extends Controller
     }
     public function detail($id){
         $pengguna = Pengguna::where('nim',$id)
+                    ->join('detail_pengguna', 'detail_pengguna.id_pengguna', '=', 'penggunas.id')
+                    ->join('tas', 'tas.id', '=', 'detail_pengguna.id_tas')
                     ->join('ruangans', 'ruangans.id', '=', 'penggunas.ruangan')
-                    ->select("penggunas.*", "ruangans.nama_ruang")->get();
+                    ->groupBy("penggunas.id")
+                    ->select("penggunas.*", "ruangans.nama_ruang", "tas.label")
+                    ->orderBy('created_at', 'desc')->get();
         DB::connection()->enableQueryLog();
         $detail = DB::table('detail_pengguna')
                     ->join('penggunas', 'penggunas.id', '=', 'detail_pengguna.id_pengguna')
                     ->join('alats', 'alats.id', '=', 'detail_pengguna.id_alat')
-                    ->join('tas', 'tas.id', '=', 'detail_pengguna.id_tas')->get();
+                    ->join('tas', 'tas.id', '=', 'detail_pengguna.id_tas')
+                    ->where('nim',$id)->get();
         $totalpinjam = DB::table('penggunas')
              ->select(DB::raw('count(*) as per, nim as nim'))
              ->groupBy('nim')
              ->where('penggunas.nim',$id)
              ->get();
         $queries = DB::getQueryLog();
+        // dd($pengguna);
         return view('pengguna.detail',compact('pengguna','detail','totalpinjam'))->with('i');
     }
 }
