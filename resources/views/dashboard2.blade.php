@@ -19,15 +19,15 @@
 <div class="login-box shadow w-100">
   <!-- /.login-logo -->
   <div class="row p-2">
-    <div class="col-4">
+    <div class="col-12 col-sm-2 col-md-2 col-lg-3 p-3">
         <div class="col">
-            <section class="content">
+            <section class="content d-none">
                 <div class="container-fluid">
                     <div class="card card-warning">
                       <div class="card-header">
                         <h3 class="card-title">Ojo Dihapus</h3>
                       </div>
-                      <div class="card-body" style="height: 300px;">
+                      <div class="card-body" style="height: 220px;">
                         <!-- <div class="d-none">
                             <label for="nim">Nim</label>
                             <div class="input-group mb-3">
@@ -41,13 +41,13 @@
             </section>           
         </div>
         <div class="col mt-2">
-            <section class="content">
+            <section class="content d-none">
                 <div class="container-fluid">
                     <div class="card card-olive">
                       <div class="card-header">
                         <h3 class="card-title">Peminjam Hari ini</h3>
                       </div>
-                      <div class="card-body table-responsive p-0" style="height: 200px;">
+                      <div class="card-body table-responsive p-0" style="height: 250px;">
                         <table class="table table-head-fixed text-wrap">
                             <thead>
                                 <tr>
@@ -82,7 +82,7 @@
         </div>
 
     </div>
-    <div class="col-6"> 
+    <div class="col-12 col-sm-6 col-md-6 col-lg-6 p-3"> 
         <section class="content">
             <div class="container-fluid">
                 <div class="card card-info">
@@ -107,7 +107,7 @@
                                         <div class="col-12">
                                             <div class="form-group" id="input_nim">
                                                 <label for="nim" class="form-label">Nim</label>
-                                                <input class="form-control" list="datalistOptions" id="nim" name="nim2" placeholder="Masukkan Nim">
+                                                <input class="form-control" list="datalistOptions" id="nim" name="nim" placeholder="Masukkan Nim" autocomplete="off">
                                                 <datalist id="datalistOptions">
                                                     @foreach ($nim as $n)
                                                         <option value="{{$n->nim}}">{{$n->nama}}</option>
@@ -154,7 +154,7 @@
                                     <div style="width:auto;">
                                       <div class="form-group">
                                           <label for="ruangan">Nama Ruangan</label>
-                                          <select name="ruangan" class="form-control select2" required> 
+                                          <select name="ruangan" class="form-control select2" id="ruangan" required> 
                                               <option hidden selected disabled>Pilih</option>
                                               @forelse ($ruangan as $sis)
                                               <option value="{{ $sis->id }}">{{ $sis->nama_ruang }}</option>
@@ -164,25 +164,22 @@
                                           </select>
                                       </div>
                                     </div>
-                                <div class="card-footer">
-                                    <button type="submit" class="btn btn-info">Simpan</button>
-                                    <button type="reset" class="btn btn-danger" id="iniklik">Refresh</button>
-                                    <!-- <a href="{{ route('login') }}" class="text-secondary" style="float: right; margin-top:3px;">Login</a> -->
-                                </div>
+                                    <button type="submit" class="btn btn-info m-1">Simpan</button>
+                                    <button type="reset" class="btn btn-outline-secondary m-1" id="iniklik">Refresh <i class="fas fa-sync-alt"></i></button>
                             </form>
                   </div>
                </div>
             </div>
         </section>
     </div>
-    <div class="col-2">
-        <section class="content">
+    <div class="col-12 col-sm-2 col-md-4 col-lg-2 p-3">
+        <section class="content d-none">
                 <div class="container-fluid">
                     <div class="card card-olive">
                       <div class="card-header">
-                        <h3 class="card-title">Barang yang tersedia</h3>
+                        <h6 class="card-title" style="font-size: 15px;">Barang yang tersedia</h6>
                       </div>
-                      <div class="card-body table-responsive p-0" style="height: 420px; font-size: 12px;">
+                      <div class="card-body table-responsive p-0" style="height: 350px; font-size: 12px;">
                         <table class="table table-head-fixed text-nowrap">
                             <thead>
                                 <tr>
@@ -191,16 +188,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td colspan="3">kotong</td>
-                                </tr>
-                              <!-- @forelse ($alat as $sis)
+                              @forelse ($tas as $sis)
                                 <tr>
                                     <td>{{ ++$i }}</td>
-                                    <td>{{ $sis->nama }}</td>
+                                    <td>{{ $sis->label }}</td>
                                 </tr>
-                              @empty -->
-                              <!-- @endforelse -->
+                              @empty
+                               @endforelse
                             </tbody>
                         </table>
                       </div>

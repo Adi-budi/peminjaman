@@ -56,10 +56,11 @@
               <div class="card-body">
                 <strong><i class="fas fa-phone mr-1"></i> Nomor </strong>
 
-                <p class="text-muted">
+                <input type="text" name="" value="{{ $pengguna[0]->nomor_telp }}" id="myInput" hidden>
+                <p class="text-muted" onclick="myFunction()" title="Copy!">
                 	{{ $pengguna[0]->nomor_telp }}
+                  <a class="fas fa-copy text-secondary"></a>
                 </p>
-
                 <hr>
               </div>
               <!-- /.card-body -->
@@ -80,37 +81,43 @@
                   <div class="active tab-pane" id="activity">
                     <!-- Post -->
                   @forelse ($pengguna as $sis)
-                    <div class="post mb-2" id="sengiki">
-                      <div class="user-block">
-                        <img class="img-circle img-bordered-sm" src="{{ url('img/blank.png') }}" alt="user image">
-                        <!-- <i class="fas fa-user img-circle img-bordered-sm"></i> -->
-                        <span class="username">
-                          <a href="#">{{ $sis->nama }}</a>
-                          <a href="#" class="float-right btn-tool" id="ngilang"><i class="fas fa-times"></i></a>
-                        </span>
-                        <span class="description">Tanggal Pinjam {{ $sis->created_at }}</span>
-                      </div>
-                      <!-- /.user-block -->
-                      <p>
-                        Saya Meminjam               
+                    <div class="post mb-2 table-responsive card-body p-0" id="sengiki">
+                        <div class="user-block">
+                          <img class="img-circle img-bordered-sm" src="{{ url('img/blank.png') }}" alt="user image">
+                          <!-- <i class="fas fa-user img-circle img-bordered-sm"></i> -->
+                          <span class="username">
+                            <a href="#">{{ $sis->nama }}</a>
+                            <!-- <a href="#" class="float-right btn-tool" id="ngilang"><i class="fas fa-times"></i></a> -->
+                          </span>
                           <?php 
-                              echo "<u>".$sis->label ."</u> yang berisi";
-                              for ($i=0; $i < count($detail); $i++) {
-                                  if($detail[$i]->id_pengguna == $sis->id){?>
-                                    
-                                    <b><?php  echo $detail[$i]->nama.", ";?></b>
-                                  <?php }
-                              }
+                                  $date = \Carbon\Carbon::parse($sis->created_at)->locale('id');
+
+                                  $date->settings(['formatFunction' => 'translatedFormat']);
+
+                                  $ikiloh = $date->format('l, j F Y . h:i a');
                           ?>
-                        </b> untuk {{ $sis->keperluan }} di ruang <b>{{ $sis->nama_ruang }}</b>
-                      </p>
+                          <span class="description">Tanggal Pinjam <?php echo $ikiloh; ?></span>
+                        </div>
+                        <!-- /.user-block -->
+                            <p>
+                              Saya Meminjam               
+                                <?php 
+                                    echo "<u>".$sis->label ."</u> yang berisi";
+                                    for ($i=0; $i < count($detail); $i++) {
+                                        if($detail[$i]->id_pengguna == $sis->id){?>
+                                          
+                                          <b><?php  echo $detail[$i]->nama.", ";?></b>
+                                        <?php }
+                                    }
+                                ?>
+                              </b> untuk {{ $sis->keperluan }} di ruang <b>{{ $sis->nama_ruang }}</b>
+                            </p>
+                          </div>
+                          @empty
+
+                          <!-- /.post -->
+                        @endforelse
                     </div>
-                    @empty
-
-                    <!-- /.post -->
-                  @endforelse
-
-                  </div>
 
                   <!-- /.tab-pane -->
 

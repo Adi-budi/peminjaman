@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use App\Models\Ruang;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use DateTime;
 
 class AdminController extends Controller
 {
@@ -22,7 +23,11 @@ class AdminController extends Controller
              ->groupBy('tahun')
              ->get();
              // var_dump($totaltahun);
-        $alat = DB::table('alats')->where('status_alat',0)->get();
+        $tas = DB::table('detail_tas')
+            ->join('tas', 'tas.id', '=', 'detail_tas.tas')
+            ->select("detail_tas.*", "tas.label","tas.id")
+            ->whereNull('tgl_kembali')
+            ->groupBy("detail_tas.tas")->get();
         $ruangan = Ruang::latest()->get();
         $pengguna_selesai = DB::table('penggunas')->whereDate('created_at', Carbon::today())->orderBy('updated_at', 'desc')->get();
         $pengguna = DB::table('penggunas')
@@ -32,7 +37,7 @@ class AdminController extends Controller
 
         $nim = Pengguna::select('nim', 'nama')->groupBy('nim')->get();
         // dd($pengguna);
-        return view('dashboard2',compact('alat','ruangan','totaltahun','pengguna_selesai','pengguna', 'nim'))->with('i');
+        return view('dashboard2',compact('tas','ruangan','totaltahun','pengguna_selesai','pengguna', 'nim'))->with('i');
         // }
 
         // return redirect()->route('login')
@@ -67,10 +72,17 @@ class AdminController extends Controller
              // var_dump($totaltahun);
         $pengguna = DB::table('penggunas')->whereDate('created_at', Carbon::today())->orderBy('created_at', 'desc')->get();
 
-        $tas = Tas::all();
+        $tas = DB::table('detail_tas')
+            ->join('tas', 'tas.id', '=', 'detail_tas.tas')
+            ->select("detail_tas.*", "tas.label","tas.id")
+            ->whereNull('tgl_kembali')
+            ->groupBy("detail_tas.tas")->get();
         $alat = Alat::all();
-
-        return view('dashboard',compact('pengguna','totaltahun', 'tas', 'alat'))->with('i');
+        $jumlahkan = DB::table('detail_pengguna')
+            ->select('id_alat', DB::raw('count(*) as total'))
+            ->whereNull('tgl_kembali')
+            ->groupBy('id_alat')->get();
+        return view('dashboard',compact('pengguna','totaltahun', 'tas', 'alat','jumlahkan'))->with('i');
     }
     public function ubahstatus1(Request $request,$id,$id_barang){
         $flight = Pengguna::find($id);
@@ -116,13 +128,13 @@ class AdminController extends Controller
     {
         for ($i=0; $i < count($request->isi); $i++) { 
             $detail = new DetailPengguna;
-  
             $detail->id_pengguna = $request->id_pengguna;
             $detail->id_alat = $request->isi[$i];
             $detail->id_tas = $request->id_tas;
             $detail->save();
-        }
 
+        }
+        $values = DetailTas::where('tas', $detail->id_tas)->update(['tgl_kembali'=> new DateTime()]);
         return redirect()->route('dashboard2')->with('success','Pengguna Berhasil ditambah');
     }
     public function hapus($id){

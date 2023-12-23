@@ -62,9 +62,12 @@ Route::prefix('/')->namespace('App\Http\Controllers')->group(function(){
         Route::get('pengguna', 'index')->name('pengguna');
         Route::get('pengguna/create', 'create')->name('pengguna.create');
         Route::post('pengguna/store', 'store')->name('pengguna.store');
-        Route::get('pengguna/ubahstatus1/{id}', 'ubahstatus1')->name('pengguna.ubahstatus1');
-        Route::get('pengguna/ubahstatus0/{id}', 'ubahstatus0')->name('pengguna.ubahstatus0');
+        Route::get('pengguna/ubahstatus1/{id}/{id1}', 'ubahstatus1')->name('pengguna.ubahstatus1');
+        Route::get('pengguna/ubahstatus0/{id}/{id1}', 'ubahstatus0')->name('pengguna.ubahstatus0');
         Route::get('pengguna/detail/{id}/', 'detail')->name('pengguna.detail');
+        Route::get('pengguna/exportAll/', 'exportAll')->name('pengguna.exportAll');
+        Route::post('pengguna/exportByTahun/', 'exportByTahun')->name('pengguna.exportByTahun');
+        Route::get('pengguna/exportByHari/', 'exportByHari')->name('pengguna.exportByHari');
     });
     Route::resource('alat', AlatController::class)->middleware('auth');
     Route::resource('tas', TasController::class)->middleware('auth');

@@ -66,6 +66,31 @@
       $("#iniklik").click(function(){
       window.location.reload();
     });
+
+    $("#harian").click(function(){
+      $("#hari").removeClass("d-none");
+      $("#minggu").addClass("d-none");
+      $("#bulan").addClass("d-none");
+      $("#tahun").addClass("d-none");
+    });
+    $("#mingguan").click(function(){
+      $("#hari").addClass("d-none");
+      $("#minggu").removeClass("d-none");
+      $("#bulan").addClass("d-none");
+      $("#tahun").addClass("d-none");
+    });
+    $("#bulanan").click(function(){
+      $("#hari").addClass("d-none");
+      $("#minggu").addClass("d-none");
+      $("#bulan").removeClass("d-none");
+      $("#tahun").addClass("d-none");
+    });
+    $("#tahunan").click(function(){
+      $("#hari").addClass("d-none");
+      $("#minggu").addClass("d-none");
+      $("#bulan").addClass("d-none");
+      $("#tahun").removeClass("d-none");
+    });
   });
 
   var refreshIntervalId = setInterval( "update()", 1000 );
@@ -78,6 +103,47 @@
         if(data != "isi lagi"){
             clearInterval(refreshIntervalId);
             $("#id_pengguna").val(data.id);
+            if(data.ruangan == 1){
+                 data.ruangan = "UPT Laboratorium Terpadu";
+            }else if(data.ruangan == 2){
+                 data.ruangan = "Lab. Jaringan";
+            }else if(data.ruangan == 3){
+                 data.ruangan = "Lab. Pembelajaran Matetmatika";
+            }else if(data.ruangan == 4){
+                 data.ruangan = "Lab. Workshop Komputer";
+            }else if(data.ruangan == 5){
+                 data.ruangan = "Lab. Telekomunikasi";
+            }else if(data.ruangan == 6){
+                 data.ruangan = "Lab. Perbankan";
+            }else if(data.ruangan == 7){
+                 data.ruangan = "Lab. Bahasa";
+            }else if(data.ruangan == 8){
+                 data.ruangan = "Lab. Microteaching";
+            }else if(data.ruangan == 9){
+                 data.ruangan = "Lab. Elektronika";
+            }else if(data.ruangan == 10){
+                 data.ruangan = "Lab. Pengolahan Citra";
+            }else if(data.ruangan == 11){
+                 data.ruangan = "Lab. Sistem Cerdas";
+            }else if(data.ruangan == 12){
+                 data.ruangan = "Lab. Rekayasa Perangkat Lunak ( RPL )";
+            }else if(data.ruangan == 13){
+                 data.ruangan = "Lab. Basis Data";
+            }else if(data.ruangan == 14){
+                 data.ruangan = "Lab. Argonomi ( industri )";
+            }else if(data.ruangan == 15){
+                 data.ruangan = "Lab. Manufaktur ( industri )";
+            }else if(data.ruangan == 16){
+                 data.ruangan = "Lab. Fluida dan Konversi Energi ( Mesin )";
+            }else if(data.ruangan == 17){
+                 data.ruangan = "Lab. Rekayasa Material dan Proses Manufaktur ( Mesin )";
+            }else if(data.ruangan == 18){
+                 data.ruangan = "Lab. Desain dan Otomasi Industri ( Mesin )";
+            }else if(data.ruangan == 19){
+                 data.ruangan = "Auditorium";
+            }else{
+                 data.ruangan = "Tidak Ada";
+            }
             var isi = "<dl class='row'>\
                         <dt class='col-sm-4'>Nim</dt>\
                         <dd class='col-sm-8'>"+data.nim+"</dd>\
@@ -87,7 +153,10 @@
                         <dd class='col-sm-8'>"+data.nomor_telp+"</dd>\
                         <dt class='col-sm-4'>Keperluan</dt>\
                         <dd class='col-sm-8'>"+data.keperluan+"</dd>\
+                        <dt class='col-sm-4'>Tempat</dt>\
+                        <dd class='col-sm-8'>"+data.ruangan+"</dd>\
                               </dl>";
+
             $("#nungguAdmin").removeClass("d-flex");
             $("#nungguAdmin").addClass("d-none");
             $("#PinjamanBaru").removeClass("d-none");
@@ -121,6 +190,20 @@
           })
         }
    });
+  }
+
+  function myFunction() {
+  // Get the text field
+    var copyText = document.getElementById("myInput");
+    // Select the text field
+    copyText.select();
+    copyText.setSelectionRange(0, 99999); // For mobile devices
+
+     // Copy the text inside the text field
+    navigator.clipboard.writeText(copyText.value);
+
+    // Alert the copied text
+    toastr.success("Berhasil Menyalin nomor " + copyText.value);
   }
 </script>
 @if ($message = Session::get('success'))

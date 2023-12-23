@@ -32,10 +32,9 @@
     }
 
     body {
-      margin: 0;
+      overflow-x: hidden;
       font-family: Arial;
       font-size: 17px;
-      overflow: hidden;
     }
 
     #myVideo {
@@ -118,6 +117,7 @@
                 success: (response) => {
                     $("#nungguAdmin").removeClass("d-none");
                     $("#nungguAdmin").addClass("d-flex");
+                    toastr.info("Mohon ditunggu sebentar");
                     $("#formPinjam").hide();
                     refreshIntervalId = setInterval( "update()", 1000 );
                 }

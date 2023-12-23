@@ -41,7 +41,7 @@
                           {{ @csrf_field() }}
                           <input type="hidden" name="id_pengguna" id="id_pengguna">
                           <div class="form-group">
-                              <label for="id_tas">Tas</label>
+                              <label>Tas</label>
                               <select name="id_tas" id="tas" class="form-control select2" required onchange="cekAlat()"> 
                                   <option hidden selected disabled>Pilih</option>
                                   @forelse ($tas as $sis)
@@ -57,7 +57,10 @@
                                   @foreach ($alat as $sis)
                                       <div class="form-check col-3">
                                           <input type="checkbox" class="form-check-input" id="{{ $sis->nama }}" name="isi[]" value="{{ $sis->id }}">
-                                          <label class="form-check-label" for="{{ $sis->nama }}">{{ $sis->nama }}</label>
+                                          <div class="d-inline">
+                                            <span class="badge badge-warning" style="font-size:8px;">{{ $sis->jumlah }}</span>
+                                            <label class="form-check-label" title="Tersisa {{ $sis->jumlah }} buah {{ $sis->nama }}">{{ $sis->nama }}</label>
+                                          </div>
                                       </div>
                                   @endforeach
                               </div>
@@ -80,7 +83,7 @@
                     <table class="table table-head-fixed text-wrap">
                         <thead>
                             <tr>
-                                <th>No.</th>
+                                <th>Status</th>
                                 <th>Nama Peminjam</th>
                             </tr>
                         </thead>
@@ -110,7 +113,7 @@
                 <div class="card-header">
                   <h3 class="card-title">Info</h3>
                 </div>
-                <div class="card-body">
+                <div class="card-body table-responsive">
                   <h6>Total Penggunaan tiap tahun</h6>
                    <table class="table table-head-fixed text-nowrap">
                       <thead>
