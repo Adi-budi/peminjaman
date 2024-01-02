@@ -123,23 +123,25 @@
 
                   <div class="tab-pane" id="settings">
                   	<!-- tambah route disini -->
-                    <form class="form-horizontal" action="" method="POST">
+                    <form class="form-horizontal" action="{{ route('pengguna.storeedit',['id' => $pengguna[0]->id]) }}" method="POST">
+                      {{ @csrf_field() }}
                       <div class="form-group row">
                         <label for="inputName2" class="col-sm-2 col-form-label">Nim</label>
                         <div class="col-sm-10">
                           <input type="text" class="form-control" id="inputName2" placeholder="nim" value="{{$pengguna[0]->nim}}" disabled>
+                          <input type="hidden" name="nim" value="{{$pengguna[0]->nim}}">
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="inputName" class="col-sm-2 col-form-label">Nama</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="inputName" placeholder="nama" value="{{$pengguna[0]->nama}}">
+                          <input type="text" class="form-control" id="inputName" placeholder="nama" name="nama" value="{{$pengguna[0]->nama}}">
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="inputEmail" class="col-sm-2 col-form-label">Nomor telephone</label>
                         <div class="col-sm-10">
-                          <input type="number" class="form-control" id="inputEmail" placeholder="No. telp" value="{{$pengguna[0]->nomor_telp}}">
+                          <input type="number" class="form-control" id="inputEmail" placeholder="No. telp" name="nomor_telp" value="{{$pengguna[0]->nomor_telp}}">
                         </div>
                       </div>
                       <div class="form-group row">

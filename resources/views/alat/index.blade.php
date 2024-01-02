@@ -50,7 +50,7 @@
                                             <td>{{ ++$i }}</td>
                                             <td><a href="{{url('alat/detail',['id' => $sis->id])}}" class="text-secondary">{{ $sis->nama }}</a></td>
                                             <td>{{ $sis->jumlah }}</td>
-                                            <td><a href="" class="btn btn-primary">Edit</a></td>
+                                            <td><a href="{{url('alat/edit',['id' => $sis->id])}}" class="btn btn-primary">Edit</a></td>
                                         </tr>
                                       @empty
                                         <tr>

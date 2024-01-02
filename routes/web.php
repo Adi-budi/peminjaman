@@ -68,6 +68,16 @@ Route::prefix('/')->namespace('App\Http\Controllers')->group(function(){
         Route::get('pengguna/exportAll/', 'exportAll')->name('pengguna.exportAll');
         Route::post('pengguna/exportByTahun/', 'exportByTahun')->name('pengguna.exportByTahun');
         Route::get('pengguna/exportByHari/', 'exportByHari')->name('pengguna.exportByHari');
+        Route::post('pengguna/storeedit/{id}', 'storeedit')->name('pengguna.storeedit');
+
+    });
+
+    Route::controller(AlatController::class)->middleware('auth')->group(function() {
+        Route::get('alat', 'index')->name('alat.index');
+        Route::get('alat/create', 'create')->name('alat.create');
+        Route::post('alat/store', 'store')->name('alat.store');
+        Route::get('alat/edit/{id}', 'edit')->name('alat.edit');
+        Route::post('alat/storeedit/{id}', 'storeedit')->name('alat.storeedit');
     });
     Route::resource('alat', AlatController::class)->middleware('auth');
     Route::resource('tas', TasController::class)->middleware('auth');

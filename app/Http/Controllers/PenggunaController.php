@@ -58,6 +58,16 @@ class PenggunaController extends Controller
    
         return redirect()->route('pengguna')->with('success','Pengguna Berhasil ditambah');
     }
+    public function storeedit($id, Request $request){
+            $peng = Pengguna::find($id);
+            $peng->nim = $request->nim;
+            $peng->nama = $request->nama;
+            $peng->nomor_telp = $request->nomor_telp;
+            $peng->save();
+            // dd($peng);
+
+        return redirect()->route('pengguna')->with('success','Pengguna Berhasil diubah');
+    }
     public function ubahstatus1(Request $request,$id,$id1){
         $flight = Pengguna::find($id);
             $flight->tgl_kembali = new DateTime();
